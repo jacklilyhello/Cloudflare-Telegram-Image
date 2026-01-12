@@ -31,20 +31,22 @@ wrangler kv namespace create IMG_KV
 
 ```bash
 wrangler secret put TG_BOT_TOKEN
+wrangler secret put TG_CHAT_ID
+wrangler secret put ALLOWED_ORIGINS
 ```
 
 ## 配置变量
 
-在 `wrangler.toml` 的 `[vars]` 中填写：
+全部变量通过环境变量/secret 注入，无需修改配置文件：
 
-- `TG_CHAT_ID`：你的频道 chat_id
-- `ALLOWED_ORIGINS`：逗号分隔的 Origin 白名单（留空表示不启用防盗链）
+- `TG_CHAT_ID`：你的频道 chat_id（使用 `wrangler secret put TG_CHAT_ID` 写入）
+- `ALLOWED_ORIGINS`：逗号分隔的 Origin 白名单（可选，使用 `wrangler secret put ALLOWED_ORIGINS` 写入，留空表示不启用防盗链）
 
 ## 本地调试
 
 ```bash
 npm install
-npm run dev
+wrangler dev --var TG_BOT_TOKEN=your_token --var TG_CHAT_ID=your_chat_id --var ALLOWED_ORIGINS=
 ```
 
 ## 部署
